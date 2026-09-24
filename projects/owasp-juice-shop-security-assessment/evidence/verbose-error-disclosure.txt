@@ -1,0 +1,18 @@
+Verbose Error / Stack Trace Disclosure
+Endpoint:
+GET http://127.0.0.1:3000/redirect?to=invalid
+Result:
+HTTP 406 Not Acceptable
+The response exposes:
+- Internal application paths
+- Source/build filenames
+- Express stack frames
+- Application middleware locations
+- The supplied target value
+Example exposed paths:
+- /juice-shop/build/routes/redirect.js
+- /juice-shop/build/routes/verify.js
+- /juice-shop/build/lib/insecurity.js
+Classification:
+Confirmed information disclosure.
+Severity: Low-Medium.

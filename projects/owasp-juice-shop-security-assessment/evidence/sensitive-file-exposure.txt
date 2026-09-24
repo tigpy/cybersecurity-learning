@@ -1,0 +1,17 @@
+Sensitive File Exposure
+Endpoint:
+GET http://127.0.0.1:3000/ftp/acquisitions.md
+Result:
+HTTP 200 OK
+The application serves a confidential Markdown document
+without authentication.
+Observed content:
+- Document identifies itself as confidential.
+- Contains planned acquisition information.
+- Content is accessible directly through the /ftp/ endpoint.
+Impact:
+An unauthenticated user can access sensitive files exposed
+through the application's FTP/static-file directory.
+Classification:
+Confirmed information disclosure.
+Severity: Medium.

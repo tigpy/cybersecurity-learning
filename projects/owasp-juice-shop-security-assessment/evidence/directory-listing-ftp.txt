@@ -1,0 +1,22 @@
+Directory Listing Validation
+Endpoint:
+GET http://127.0.0.1:3000/ftp/
+Result:
+HTTP 200 OK
+Confirmed:
+Directory listing is enabled and exposes the contents of /ftp/.
+Observed files:
+- incident-support.kdbx
+- package.json.bak
+- package-lock.json.bak
+- encrypt.pyc
+- announcement_encrypted.md
+- suspicious_errors.yml
+- acquisitions.md
+- legal.md
+Impact:
+An unauthenticated user can enumerate files and potentially identify sensitive
+artifacts or backup files.
+Classification:
+Confirmed vulnerability.
+Severity: Medium (provisional).

