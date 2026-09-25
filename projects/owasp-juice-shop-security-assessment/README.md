@@ -101,20 +101,18 @@ flowchart TD
 
 ---
 
-## 6. Confirmed Dynamic Findings
+## 6. Key Findings
 
-The following six vulnerabilities were **dynamically validated** against the active target instance and subsequently confirmed via source-code analysis.
+The following table summarizes the vulnerabilities that were **dynamically validated** against the active target instance and correlated with source-code analysis:
 
-### Summary Table
-
-| Finding ID | Title | Severity | CVSS v3.1 | Endpoint | Dynamic Status | Source Code Status |
-|---|---|---|---|---|---|---|
-| **SEC-01** | SQL Injection Authentication Bypass | **Critical** | `9.8` | `POST /rest/user/login` | **Confirmed** | **Confirmed** (`routes/login.ts`) |
-| **SEC-02** | Mass Assignment Privilege Escalation | **High** | `8.1` | `POST /api/Users/` | **Confirmed** | **Confirmed** (`server.ts` / `models/user.ts`) |
-| **SEC-03** | Broken Object-Level Authorization (IDOR) | **High** | `6.5` | `GET /rest/basket/{id}` | **Confirmed** | **Confirmed** (`routes/basket.ts`) |
-| **SEC-04** | FTP Directory Listing & Sensitive Data Exposure | **Medium** | `5.3` | `GET /ftp/` | **Confirmed** | **Confirmed** (`server.ts` / `routes/fileServer.ts`) |
-| **SEC-05** | Verbose Error & Stack Trace Disclosure | **Low-Medium** | `5.3` | `GET /redirect?to=invalid` | **Confirmed** | **Confirmed** (`server.ts` / `routes/redirect.ts`) |
-| **SEC-06** | Product Search SQL Query Manipulation | **High** *(Potential)* | `7.5` | `GET /rest/products/search?q=` | **Confirmed (Error Disruption)** | **Confirmed** (`routes/search.ts`) |
+| # | Vulnerability Finding | Severity | Endpoint | Assessment Status |
+|---|---|---|---|---|
+| **1** | SQL Injection / Authentication Bypass | **Critical** | `POST /rest/user/login` | Confirmed exploitable authentication bypass |
+| **2** | Mass Assignment / Administrative Account Creation | **High** | `POST /api/Users/` | Confirmed unauthenticated admin account creation |
+| **3** | IDOR / BOLA | **High** | `GET /rest/basket/{id}` | Confirmed cross-user basket data retrieval |
+| **4** | Directory Listing / Sensitive File Exposure | **Medium** | `GET /ftp/` | Confirmed unauthenticated file enumeration & access |
+| **5** | Verbose Error / Stack Trace Disclosure | **Low–Medium** | `GET /redirect?to=invalid` | Confirmed internal architecture & stack frame leakage |
+| **6** | Product Search SQL Injection | **High** *(Validated)* | `GET /rest/products/search?q=` | Validated SQL injection behavior *(No database extraction claimed)* |
 
 ---
 
@@ -396,12 +394,17 @@ flowchart TD
 
 ```
 projects/owasp-juice-shop-security-assessment/
-├── README.md                                  # This comprehensive assessment overview
+├── README.md                                  # Comprehensive assessment overview & methodology
 ├── report/
-│   └── Web_sec_rp.pdf                         # Complete 17-page technical security report
+│   └── Web_sec_rp.pdf                         # Final 17-page formal assessment report (PDF)
 ├── scope.md                                   # Formal authorization & scope definition
 ├── recon.md                                   # Port scan & service reconnaissance notes
+├── scans/                                     # Automated security & network scans
+│   ├── nmap-3000.txt                          # Port 3000 service detection scan
+│   └── semgrep-javascript.json                # Static security scan output
 └── evidence/
+    ├── baseline-docker.txt                    # Local container environment verification
+    ├── baseline-http.txt                      # Initial HTTP service validation
     ├── nmap-3000.txt                          # Port 3000 service detection scan
     ├── http-headers.txt                       # Baseline HTTP response headers
     ├── login-sqli-auth-bypass.txt             # SQL injection login bypass evidence
@@ -427,3 +430,4 @@ projects/owasp-juice-shop-security-assessment/
 Cybersecurity Researcher & Information Technology Professional  
 - **GitHub**: [@tigpy](https://github.com/tigpy)  
 - **Portfolio Project Repository**: [cybersecurity-learning](https://github.com/tigpy/cybersecurity-learning)
+
